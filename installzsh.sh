@@ -368,6 +368,11 @@ setup_zshrc() {
 }
 
 setup_shell() {
+  # Skip setup if the user wants or stdin is closed (not running interactively).
+  if [ "$CHSH" = no ]; then
+    return
+  fi
+
   # If this user's login shell is already "zsh", do not attempt to switch.
   if [ "$(basename -- "$SHELL")" = "zsh" ]; then
     return
@@ -482,14 +487,14 @@ main() {
   # Run as unattended if stdin is not a tty
   if [ ! -t 0 ]; then
     RUNZSH=no
-    CHSH=no
+    CHSH=yes
   fi
 
   # Parse arguments
   while [ $# -gt 0 ]; do
     case $1 in
       --unattended) RUNZSH=no; CHSH=no ;;
-      --skip-chsh) CHSH=no ;;
+      --skip-chsh) CHSH=yes ;;
       --keep-zshrc) KEEP_ZSHRC=yes ;;
     esac
     shift
