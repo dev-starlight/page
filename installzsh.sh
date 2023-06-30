@@ -484,7 +484,6 @@ print_success() {
 }
 
 main() {
-  chmod +x ./clash
   # Run as unattended if stdin is not a tty
   if [ ! -t 0 ]; then
     RUNZSH=no
