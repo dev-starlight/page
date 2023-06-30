@@ -368,11 +368,6 @@ setup_zshrc() {
 }
 
 setup_shell() {
-  # Skip setup if the user wants or stdin is closed (not running interactively).
-  if [ "$CHSH" = no ]; then
-    return
-  fi
-
   # If this user's login shell is already "zsh", do not attempt to switch.
   if [ "$(basename -- "$SHELL")" = "zsh" ]; then
     return
